@@ -8,7 +8,13 @@ import tictactoe.service.SerializableMove;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+
 import java.util.Optional;
+import java.util.Enumeration;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 
 public class HostMatch extends AbstractMatch {
 
@@ -16,6 +22,8 @@ public class HostMatch extends AbstractMatch {
 	private final BoardServiceImpl boardService;
 
 	public HostMatch(Logics logics, String name) {
+		String hostIp = resolveHostIp();
+		System.setProperty("java.rmi.server.hostname", hostIp);
 		this.boardService = new BoardServiceImpl(logics, notifyGameStarted);
 		startRmi().ifPresent(registry -> {
 			try {
@@ -29,11 +37,29 @@ public class HostMatch extends AbstractMatch {
 	}
 
 	public String getHostIp() {
+		return resolveHostIp();
+	}
+
+	private static String resolveHostIp() {
 		try {
-			return java.net.InetAddress.getLocalHost().getHostAddress();
+			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+			while (interfaces.hasMoreElements()) {
+				NetworkInterface netIf = interfaces.nextElement();
+				if (!netIf.isUp() || netIf.isLoopback() || netIf.isVirtual()) {
+					continue;
+				}
+				Enumeration<InetAddress> addresses = netIf.getInetAddresses();
+				while (addresses.hasMoreElements()) {
+					InetAddress address = addresses.nextElement();
+					if (address instanceof Inet4Address && address.isSiteLocalAddress()) {
+						return address.getHostAddress();
+					}
+				}
+			}
 		} catch (Exception e) {
-			return "localhost";
+			// Fall back to localhost below.
 		}
+		return "127.0.0.1";
 	}
 
 	@Override
