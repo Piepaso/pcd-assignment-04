@@ -11,6 +11,4 @@ public interface Match {
     void addStatusObserver(Consumer<String> status);
 
     void move(Integer pos);
-
-    void start();
 }

@@ -12,17 +12,16 @@ public class Main {
         Logics logics = new LogicsImpl();
         GUI gui = new GUI();
 
-        gui.setOnHostSelected(() -> {
-            HostMatch hostMatch = new HostMatch(logics);
+        gui.setOnHostSelected(name -> {
+            HostMatch hostMatch = new HostMatch(logics, name);
             configureMatch(hostMatch, gui);
-            hostMatch.init();
-            gui.showHostCode(hostMatch.getJoinCode());
-
+            gui.showHostIP(hostMatch.getHostIp());
         });
 
-        gui.setOnJoinSelected(code -> {
-            ClientMatch clientMatch = new ClientMatch(logics, code);
+        gui.setOnJoinSelected((ip, name) -> {
+            ClientMatch clientMatch = new ClientMatch();
             configureMatch(clientMatch, gui);
+            clientMatch.connect(ip, name);
         });
     }
 
@@ -31,6 +30,5 @@ public class Main {
         match.addUpdateBoardObserver(gui::updateBoard);
         match.addStatusObserver(gui::updateStatus);
         gui.setOnMoveSelected(match::move);
-        match.start();
     }
 }

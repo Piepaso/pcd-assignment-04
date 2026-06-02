@@ -1,58 +1,75 @@
 package tictactoe.match;
 
-import tictactoe.logics.Logics;
 import tictactoe.service.SerializableBoard;
 import tictactoe.service.BoardListener;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class AbstractMatch implements Match {
-	protected Runnable notifyGameStarted;
-	protected final Logics logics;
-	private Consumer<List<Integer>> onBoardUpdate;
-	private Consumer<String> onMessage;
+	protected final Runnable notifyGameStarted;
+	private final List<Runnable> gameStartedObservers = new ArrayList<>();
+	private final List<Consumer<List<Integer>>> boardObservers = new ArrayList<>();
+	protected final List<Consumer<String>> statusObservers = new ArrayList<>();
+	private boolean gameStarted;
 
-	protected BoardListener listener;
+	protected final BoardListener listener;
 
+	public AbstractMatch() {
+		this.notifyGameStarted = () -> {
+			gameStarted = true;
+			for (Runnable observer : gameStartedObservers) {
+				observer.run();
+			}
+		};
 
-	public AbstractMatch(Logics logics) {
-		this.logics = logics;
-	}
-
-	@Override
-	public void start() {
 		this.listener = new BoardListener() {
 			@Override
 			public void boardUpdated(SerializableBoard board) throws RemoteException {
-				onBoardUpdate.accept(board.cells());
+				for (Consumer<List<Integer>> observer : boardObservers) {
+					observer.accept(board.cells());
+				}
 			}
 
 			@Override
 			public void notifyWinner(int winner) throws RemoteException {
-				onMessage.accept("Player " + winner + " wins!");
+				for (Consumer<String> observer : statusObservers) {
+					observer.accept("Player " + winner + " wins!");
+				}
 			}
 
 			@Override
 			public void notifyMessage(String message) throws RemoteException {
-				onMessage.accept(message);
+				for (Consumer<String> observer : statusObservers) {
+					observer.accept(message);
+				}
 			}
 		};
 	}
 
 	@Override
 	public void addGameStartedObserver(Runnable f) {
-		this.notifyGameStarted = f;
+		if (f != null) {
+			this.gameStartedObservers.add(f);
+			if (gameStarted) {
+				f.run();
+			}
+		}
 	}
 
 	@Override
 	public void addUpdateBoardObserver(Consumer<List<Integer>> board) {
-		this.onBoardUpdate = board;
+		if (board != null) {
+			this.boardObservers.add(board);
+		}
 	}
 
 	@Override
 	public void addStatusObserver(Consumer<String> status) {
-		this.onMessage = status;
+		if (status != null) {
+			this.statusObservers.add(status);
+		}
 	}
 }

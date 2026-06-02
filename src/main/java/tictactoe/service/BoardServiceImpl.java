@@ -16,7 +16,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void addBoardListener(BoardListener listener) throws RemoteException {
+	public synchronized void addBoardListener(BoardListener listener) throws RemoteException {
 		listeners.add(listener);
 		if (listeners.size() == 2) {
 			notifyGameStarted.run();
@@ -27,7 +27,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void makeMove(SerializableMove move) throws RemoteException {
+	public synchronized void makeMove(SerializableMove move) throws RemoteException {
 		try {
 			if (logics.mark(move.position(), move.player())) {
 				 for (BoardListener listener : listeners) {
@@ -39,7 +39,9 @@ public class BoardServiceImpl implements BoardService {
 			}
 
 		} catch (IllegalStateException e) {
-			listeners.get(move.player()).notifyMessage(e.getMessage());
+			if (move.player() >= 0 && move.player() < listeners.size()) {
+				listeners.get(move.player()).notifyMessage(e.getMessage());
+			}
 		}
 	}
 }

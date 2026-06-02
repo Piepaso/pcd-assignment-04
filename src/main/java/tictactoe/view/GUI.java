@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer; // Importato BiConsumer
 import java.util.function.Consumer;
 
 public class GUI {
@@ -11,22 +12,24 @@ public class GUI {
     private JPanel mainPanel;
     private CardLayout cardLayout;
 
-    // Schermata 1: Menu
+    // Menu
     private JButton hostButton;
     private JButton joinButton;
 
-    // Schermata 2: Lobby/Codice
-    private JLabel codeLabel;
-    private JTextField codeField;
-    private JButton connectButton;
+    // Lobby
+    private JLabel label1;       // Primo input (Nome Lobby per Host / IP per Client)
+    private JTextField field1;
+    private JLabel label2;       // Secondo input (Solo per il Client: Nome Lobby)
+    private JTextField field2;
+    private JButton actionButton;
 
-    // Schermata 3: Gioco
+    // Game
     private final List<JButton> boardButtons = new ArrayList<>(9);
     private JLabel messageLabel;
 
-    // Callback per comunicare con il Main/Match
-    private Runnable onHostSelected;
-    private Consumer<String> onJoinSelected;
+    // Callbacks
+    private Consumer<String> onHostSelected;
+    private BiConsumer<String, String> onJoinSelected; // Modificato in BiConsumer<IP, LobbyName>
     private Consumer<Integer> onMoveSelected;
 
     public GUI() {
@@ -34,14 +37,13 @@ public class GUI {
     }
 
     private void initGUI() {
-        frame = new JFrame("TicTacToe Distribuito");
+        frame = new JFrame("Distributed TicTacToe");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
+        frame.setSize(400, 450); // Aumentato leggermente l'altezza per far spazio ai due campi
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        // Costruiamo i tre pannelli (le tre "fasi")
         mainPanel.add(createMenuPanel(), "MENU");
         mainPanel.add(createLobbyPanel(), "LOBBY");
         mainPanel.add(createGamePanel(), "GAME");
@@ -51,22 +53,54 @@ public class GUI {
         frame.setVisible(true);
     }
 
-    // --- CREAZIONE DEI PANNELLI ---
-
     private JPanel createMenuPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
         hostButton = new JButton("Ospita Partita (Host)");
         joinButton = new JButton("Unisciti a Partita (Join)");
 
+        // Configura la lobby per l'HOST
         hostButton.addActionListener(e -> {
-            if (onHostSelected != null) onHostSelected.run();
+            label1.setText("Inserisci il nome della Lobby:");
+            field1.setText("");
+            field1.setVisible(true);
+
+            // L'host non ha bisogno del secondo campo
+            label2.setVisible(false);
+            field2.setVisible(false);
+
+            actionButton.setText("Crea Lobby");
+            actionButton.setVisible(true);
+
+            for (var al : actionButton.getActionListeners()) actionButton.removeActionListener(al);
+            actionButton.addActionListener(ev -> {
+                if (onHostSelected != null) onHostSelected.accept(field1.getText());
+            });
+
+            cardLayout.show(mainPanel, "LOBBY");
         });
 
+        // Configura la lobby per il CLIENT
         joinButton.addActionListener(e -> {
-            // Mostra i campi per inserire il codice nel pannello Lobby
-            codeLabel.setText("Inserisci il codice dell'Host:");
-            codeField.setVisible(true);
-            connectButton.setVisible(true);
+            label1.setText("Inserisci l'IP dell'Host:");
+            field1.setText("");
+            field1.setVisible(true);
+
+            label2.setText("Inserisci il nome della Lobby:");
+            field2.setText("");
+            label2.setVisible(true);
+            field2.setVisible(true);
+
+            actionButton.setText("Connettiti");
+            actionButton.setVisible(true);
+
+            for (var al : actionButton.getActionListeners()) actionButton.removeActionListener(al);
+            actionButton.addActionListener(ev -> {
+                if (onJoinSelected != null) {
+                    // field1 IP, field2 lobby name
+                    onJoinSelected.accept(field1.getText(), field2.getText());
+                }
+            });
+
             cardLayout.show(mainPanel, "LOBBY");
         });
 
@@ -78,23 +112,25 @@ public class GUI {
     private JPanel createLobbyPanel() {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = GridBagConstraints.RELATIVE; gbc.insets = new Insets(10,10,10,10);
+        gbc.gridx = 0; gbc.gridy = GridBagConstraints.RELATIVE; gbc.insets = new Insets(8,10,8,10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        codeLabel = new JLabel("In attesa del codice...");
-        codeField = new JTextField(15);
-        connectButton = new JButton("Connettiti");
+        label1 = new JLabel("In attesa...", SwingConstants.CENTER);
+        field1 = new JTextField(15);
+        label2 = new JLabel("In attesa...", SwingConstants.CENTER);
+        field2 = new JTextField(15);
+        actionButton = new JButton("Invia");
 
-        // Di default nascosti, usati solo dal Guest
-        codeField.setVisible(false);
-        connectButton.setVisible(false);
+        field1.setVisible(false);
+        label2.setVisible(false);
+        field2.setVisible(false);
+        actionButton.setVisible(false);
 
-        connectButton.addActionListener(e -> {
-            if (onJoinSelected != null) onJoinSelected.accept(codeField.getText());
-        });
-
-        panel.add(codeLabel, gbc);
-        panel.add(codeField, gbc);
-        panel.add(connectButton, gbc);
+        panel.add(label1, gbc);
+        panel.add(field1, gbc);
+        panel.add(label2, gbc);
+        panel.add(field2, gbc);
+        panel.add(actionButton, gbc);
         return panel;
     }
 
@@ -122,22 +158,21 @@ public class GUI {
         return panel;
     }
 
-    // --- METODI DI CONTROLLO (Chiamati dal Main/Match) ---
-
-    public void showHostCode(String code) {
+    public void showHostIP(String ip) {
         SwingUtilities.invokeLater(() -> {
-            codeLabel.setText("<html><center>Il tuo codice di gioco è:<br><b style='font-size:16px;'>" + code + "</b><br><br>In attesa che l'altro giocatore si unisca...</center></html>");
-            codeField.setVisible(false);
-            connectButton.setVisible(false);
+            label1.setText("<html><center>Your IP:<br><b style='font-size:16px;'>" + ip + "</b><br><br>Waiting for opponent to join...</center></html>");
+            field1.setVisible(false);
+            label2.setVisible(false);
+            field2.setVisible(false);
+            actionButton.setVisible(false);
             cardLayout.show(mainPanel, "LOBBY");
         });
     }
 
     public void startGame() {
-        // Ecco il "risveglio"! RMI chiama questo metodo e noi passiamo alla schermata di gioco
         SwingUtilities.invokeLater(() -> {
             cardLayout.show(mainPanel, "GAME");
-            updateStatus("Partita Iniziata! Il gioco ha inizio.");
+            updateStatus("Opponent joined! Your turn.");
         });
     }
 
@@ -155,9 +190,7 @@ public class GUI {
         SwingUtilities.invokeLater(() -> messageLabel.setText(message));
     }
 
-    // --- SETTER PER I LISTENER ---
-
-    public void setOnHostSelected(Runnable callback) { this.onHostSelected = callback; }
-    public void setOnJoinSelected(Consumer<String> callback) { this.onJoinSelected = callback; }
+    public void setOnHostSelected(Consumer<String> callback) { this.onHostSelected = callback; }
+    public void setOnJoinSelected(BiConsumer<String, String> callback) { this.onJoinSelected = callback; }
     public void setOnMoveSelected(Consumer<Integer> callback) { this.onMoveSelected = callback; }
 }

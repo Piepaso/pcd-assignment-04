@@ -9,39 +9,31 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Optional;
-import java.util.Random;
 
 public class HostMatch extends AbstractMatch {
 
 	private static final int PLAYER_NUM = 0;
-	private String code = "undefined";
-	private BoardServiceImpl boardService;
+	private final BoardServiceImpl boardService;
 
-	public HostMatch(Logics logics) {
-		super(logics);
-	}
-
-	public String getJoinCode() {
-		return code;
-	}
-
-	public void init() {
+	public HostMatch(Logics logics, String name) {
 		this.boardService = new BoardServiceImpl(logics, notifyGameStarted);
 		startRmi().ifPresent(registry -> {
 			try {
 				BoardService serviceStub = (BoardService) UnicastRemoteObject.exportObject(boardService, 0);
-
-				Random random = new Random();
-				String code = random.nextInt(1000, 10000) + "";
-
-				registry.rebind(code, serviceStub);
-
+				registry.rebind(name, serviceStub);
 				boardService.addBoardListener(listener);
-				this.code = code;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});
+	}
+
+	public String getHostIp() {
+		try {
+			return java.net.InetAddress.getLocalHost().getHostAddress();
+		} catch (Exception e) {
+			return "localhost";
+		}
 	}
 
 	@Override
@@ -49,22 +41,20 @@ public class HostMatch extends AbstractMatch {
 		try {
 			boardService.makeMove(new SerializableMove(pos, PLAYER_NUM));
 		} catch (Exception e) {
-			System.err.println("Errore durante l'esecuzione della mossa:");
+			System.err.println("Failed to make move: ");
 			e.printStackTrace();
 		}
 	}
 
 	private static Optional<Registry> startRmi() {
 		try {
-			int porta = 1099; // default
-			System.out.println("Avvio del registro RMI sulla porta " + porta + "...");
-			Registry registry = LocateRegistry.createRegistry(porta);
-			System.out.println("Registro RMI avviato con successo!");
-
-			System.out.println("Server pronto.");
+			int port = 1099;
+			System.out.println("Starting RMI registry on port " + port + "...");
+			Registry registry = LocateRegistry.createRegistry(port);
+			System.out.println("RMI registry started successfully.");
 			return Optional.of(registry);
 		} catch (Exception e) {
-			System.err.println("Errore durante l'avvio del Server RMI:");
+			System.err.println("Failed to start RMI registry: ");
 			e.printStackTrace();
 			return Optional.empty();
 		}
