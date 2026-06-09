@@ -18,7 +18,7 @@ public class ClientMatch extends AbstractMatch {
 		try {
 			Registry registry = LocateRegistry.getRegistry(ip);
 			service = (BoardService) registry.lookup(lobbyName);
-			var listenerStub = (BoardListener) UnicastRemoteObject.exportObject(listener, 0);
+			var listenerStub = (BoardListener) UnicastRemoteObject.exportObject(listener, 1101);
 			service.addBoardListener(listenerStub);
 			notifyGameStarted.run();
 		} catch (Exception e) {

@@ -191,6 +191,8 @@ public class GUI {
     }
 
     public void setOnHostSelected(Consumer<String> callback) { this.onHostSelected = callback; }
+
     public void setOnJoinSelected(BiConsumer<String, String> callback) { this.onJoinSelected = callback; }
+
     public void setOnMoveSelected(Consumer<Integer> callback) { this.onMoveSelected = callback; }
 }

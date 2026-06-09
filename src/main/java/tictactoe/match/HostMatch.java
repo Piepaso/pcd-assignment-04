@@ -10,11 +10,6 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import java.util.Optional;
-import java.util.Enumeration;
-
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
 
 public class HostMatch extends AbstractMatch {
 
@@ -22,12 +17,11 @@ public class HostMatch extends AbstractMatch {
 	private final BoardServiceImpl boardService;
 
 	public HostMatch(Logics logics, String name) {
-		String hostIp = resolveHostIp();
-		System.setProperty("java.rmi.server.hostname", hostIp);
+		System.setProperty("java.rmi.server.hostname", getHostIp());
 		this.boardService = new BoardServiceImpl(logics, notifyGameStarted);
 		startRmi().ifPresent(registry -> {
 			try {
-				BoardService serviceStub = (BoardService) UnicastRemoteObject.exportObject(boardService, 0);
+				BoardService serviceStub = (BoardService) UnicastRemoteObject.exportObject(boardService, 1100);
 				registry.rebind(name, serviceStub);
 				boardService.addBoardListener(listener);
 			} catch (Exception e) {
@@ -37,29 +31,7 @@ public class HostMatch extends AbstractMatch {
 	}
 
 	public String getHostIp() {
-		return resolveHostIp();
-	}
-
-	private static String resolveHostIp() {
-		try {
-			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-			while (interfaces.hasMoreElements()) {
-				NetworkInterface netIf = interfaces.nextElement();
-				if (!netIf.isUp() || netIf.isLoopback() || netIf.isVirtual()) {
-					continue;
-				}
-				Enumeration<InetAddress> addresses = netIf.getInetAddresses();
-				while (addresses.hasMoreElements()) {
-					InetAddress address = addresses.nextElement();
-					if (address instanceof Inet4Address && address.isSiteLocalAddress()) {
-						return address.getHostAddress();
-					}
-				}
-			}
-		} catch (Exception e) {
-			// Fall back to localhost below.
-		}
-		return "127.0.0.1";
+		return "127.0.0.1"; // Placeholder for IP retrieval logic
 	}
 
 	@Override
