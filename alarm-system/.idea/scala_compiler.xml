@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <option name="separateProdTestSources" value="true" />
+    <profile name="sbt 1" modules="Template-for-Scala-Multiplatform-Projects,Template-for-Scala-Multiplatform-Projects.basics,Template-for-Scala-Multiplatform-Projects.cluster,seminar-pcd-actor-pekko-code_4690,seminar-pcd-actor-pekko-code_4690.main,seminar-pcd-actor-pekko-code_4690.test" />
+    <profile name="sbt 2" modules="Template-for-Scala-Multiplatform-Projects.test">
+      <option name="implicitConversions" value="true" />
+      <option name="uncheckedWarnings" value="true" />
+      <option name="featureWarnings" value="true" />
+      <parameters>
+        <parameter value="-Werror" />
+        <parameter value="-Wunused:all" />
+        <parameter value="-Wvalue-discard" />
+        <parameter value="-Wnonunit-statement" />
+        <parameter value="-Yexplicit-nulls" />
+        <parameter value="-Wsafe-init" />
+        <parameter value="-Ycheck-reentrant" />
+        <parameter value="-Xcheck-macros" />
+        <parameter value="-rewrite" />
+        <parameter value="-indent" />
+        <parameter value="-explain" />
+        <parameter value="-Xsemanticdb" />
+        <parameter value="-semanticdb-target" />
+        <parameter value="$PROJECT_DIR$/target/scala-3.7.4/test-meta" />
+      </parameters>
+      <plugins>
+        <plugin path="$PROJECT_DIR$/target/scala-3.7.4/compiler_plugins/wartremover_3.7.4-3.4.1.jar" />
+      </plugins>
+    </profile>
+    <profile name="sbt 3" modules="Template-for-Scala-Multiplatform-Projects.main">
+      <option name="implicitConversions" value="true" />
+      <option name="uncheckedWarnings" value="true" />
+      <option name="featureWarnings" value="true" />
+      <parameters>
+        <parameter value="-Werror" />
+        <parameter value="-Wunused:all" />
+        <parameter value="-Wvalue-discard" />
+        <parameter value="-Wnonunit-statement" />
+        <parameter value="-Yexplicit-nulls" />
+        <parameter value="-Wsafe-init" />
+        <parameter value="-Ycheck-reentrant" />
+        <parameter value="-Xcheck-macros" />
+        <parameter value="-rewrite" />
+        <parameter value="-indent" />
+        <parameter value="-explain" />
+        <parameter value="-Xsemanticdb" />
+        <parameter value="-semanticdb-target" />
+        <parameter value="$PROJECT_DIR$/target/scala-3.7.4/meta" />
+      </parameters>
+      <plugins>
+        <plugin path="$PROJECT_DIR$/target/scala-3.7.4/compiler_plugins/wartremover_3.7.4-3.4.1.jar" />
+      </plugins>
+    </profile>
+    <profile name="sbt 4" modules="Template-for-Scala-Multiplatform-Projects.basics.test">
+      <option name="implicitConversions" value="true" />
+      <option name="uncheckedWarnings" value="true" />
+      <option name="featureWarnings" value="true" />
+      <parameters>
+        <parameter value="-Werror" />
+        <parameter value="-Wunused:all" />
+        <parameter value="-Wvalue-discard" />
+        <parameter value="-Wnonunit-statement" />
+        <parameter value="-Yexplicit-nulls" />
+        <parameter value="-Wsafe-init" />
+        <parameter value="-Ycheck-reentrant" />
+        <parameter value="-Xcheck-macros" />
+        <parameter value="-rewrite" />
+        <parameter value="-indent" />
+        <parameter value="-explain" />
+        <parameter value="-Xsemanticdb" />
+        <parameter value="-semanticdb-target" />
+        <parameter value="$PROJECT_DIR$/basics/target/scala-3.7.4/test-meta" />
+      </parameters>
+      <plugins>
+        <plugin path="$PROJECT_DIR$/target/scala-3.7.4/compiler_plugins/wartremover_3.7.4-3.4.1.jar" />
+      </plugins>
+    </profile>
+    <profile name="sbt 5" modules="Template-for-Scala-Multiplatform-Projects.basics.main">
+      <option name="implicitConversions" value="true" />
+      <option name="uncheckedWarnings" value="true" />
+      <option name="featureWarnings" value="true" />
+      <parameters>
+        <parameter value="-Werror" />
+        <parameter value="-Wunused:all" />
+        <parameter value="-Wvalue-discard" />
+        <parameter value="-Wnonunit-statement" />
+        <parameter value="-Yexplicit-nulls" />
+        <parameter value="-Wsafe-init" />
+        <parameter value="-Ycheck-reentrant" />
+        <parameter value="-Xcheck-macros" />
+        <parameter value="-rewrite" />
+        <parameter value="-indent" />
+        <parameter value="-explain" />
+        <parameter value="-Xsemanticdb" />
+        <parameter value="-semanticdb-target" />
+        <parameter value="$PROJECT_DIR$/basics/target/scala-3.7.4/meta" />
+      </parameters>
+      <plugins>
+        <plugin path="$PROJECT_DIR$/target/scala-3.7.4/compiler_plugins/wartremover_3.7.4-3.4.1.jar" />
+      </plugins>
+    </profile>
+    <profile name="sbt 6" modules="Template-for-Scala-Multiplatform-Projects.cluster.test">
+      <option name="implicitConversions" value="true" />
+      <option name="uncheckedWarnings" value="true" />
+      <option name="featureWarnings" value="true" />
+      <parameters>
+        <parameter value="-Werror" />
+        <parameter value="-Wunused:all" />
+        <parameter value="-Wvalue-discard" />
+        <parameter value="-Wnonunit-statement" />
+        <parameter value="-Yexplicit-nulls" />
+        <parameter value="-Wsafe-init" />
+        <parameter value="-Ycheck-reentrant" />
+        <parameter value="-Xcheck-macros" />
+        <parameter value="-rewrite" />
+        <parameter value="-indent" />
+        <parameter value="-explain" />
+        <parameter value="-Xsemanticdb" />
+        <parameter value="-semanticdb-target" />
+        <parameter value="$PROJECT_DIR$/cluster/target/scala-3.7.4/test-meta" />
+      </parameters>
+      <plugins>
+        <plugin path="$PROJECT_DIR$/target/scala-3.7.4/compiler_plugins/wartremover_3.7.4-3.4.1.jar" />
+      </plugins>
+    </profile>
+    <profile name="sbt 7" modules="Template-for-Scala-Multiplatform-Projects.cluster.main">
+      <option name="implicitConversions" value="true" />
+      <option name="uncheckedWarnings" value="true" />
+      <option name="featureWarnings" value="true" />
+      <parameters>
+        <parameter value="-Werror" />
+        <parameter value="-Wunused:all" />
+        <parameter value="-Wvalue-discard" />
+        <parameter value="-Wnonunit-statement" />
+        <parameter value="-Yexplicit-nulls" />
+        <parameter value="-Wsafe-init" />
+        <parameter value="-Ycheck-reentrant" />
+        <parameter value="-Xcheck-macros" />
+        <parameter value="-rewrite" />
+        <parameter value="-indent" />
+        <parameter value="-explain" />
+        <parameter value="-Xsemanticdb" />
+        <parameter value="-semanticdb-target" />
+        <parameter value="$PROJECT_DIR$/cluster/target/scala-3.7.4/meta" />
+      </parameters>
+      <plugins>
+        <plugin path="$PROJECT_DIR$/target/scala-3.7.4/compiler_plugins/wartremover_3.7.4-3.4.1.jar" />
+      </plugins>
+    </profile>
+  </component>
+</project>

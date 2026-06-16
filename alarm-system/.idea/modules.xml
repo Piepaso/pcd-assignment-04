@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/Template-for-Scala-Multiplatform-Projects.iml" filepath="$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/Template-for-Scala-Multiplatform-Projects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/Template-for-Scala-Multiplatform-Projects.Template-for-Scala-Multiplatform-Projects-build.iml" filepath="$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/Template-for-Scala-Multiplatform-Projects.Template-for-Scala-Multiplatform-Projects-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/basics/Template-for-Scala-Multiplatform-Projects.basics.main.iml" filepath="$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/basics/Template-for-Scala-Multiplatform-Projects.basics.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/basics/Template-for-Scala-Multiplatform-Projects.basics.test.iml" filepath="$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/basics/Template-for-Scala-Multiplatform-Projects.basics.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/cluster/Template-for-Scala-Multiplatform-Projects.cluster.iml" filepath="$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/cluster/Template-for-Scala-Multiplatform-Projects.cluster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/cluster/Template-for-Scala-Multiplatform-Projects.cluster.main.iml" filepath="$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/cluster/Template-for-Scala-Multiplatform-Projects.cluster.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/cluster/Template-for-Scala-Multiplatform-Projects.cluster.test.iml" filepath="$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/cluster/Template-for-Scala-Multiplatform-Projects.cluster.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/Template-for-Scala-Multiplatform-Projects.main.iml" filepath="$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/Template-for-Scala-Multiplatform-Projects.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/Template-for-Scala-Multiplatform-Projects.test.iml" filepath="$PROJECT_DIR$/.idea/modules/seminar-pcd-actor-pekko-code/Template-for-Scala-Multiplatform-Projects.test.iml" />
+    </modules>
+  </component>
+</project>
