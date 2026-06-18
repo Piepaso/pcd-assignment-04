@@ -1,4 +1,4 @@
-package io.github.nicolasfara.es01.cluster.router
+package pcd.cluster.router
 
 import com.typesafe.config.ConfigFactory
 import org.apache.pekko.actor.typed.*

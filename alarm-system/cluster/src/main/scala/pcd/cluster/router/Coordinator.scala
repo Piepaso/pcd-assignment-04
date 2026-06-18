@@ -1,4 +1,4 @@
-package io.github.nicolasfara.es01.cluster.router
+package pcd.cluster.router
 
 import com.typesafe.config.ConfigFactory
 import org.apache.pekko.actor.typed.*
@@ -25,6 +25,10 @@ object Coordinator:
           case WorkerRouter.workerServiceKey.Listing(workers) => WorkersUpdated(workers)
 
         ctx.system.receptionist ! Receptionist.Subscribe(WorkerRouter.workerServiceKey, listingAdapter)
+
+
+
+
 
         def idle(nextInputIdx: Int): Behavior[Command] =
           Behaviors.receiveMessage:

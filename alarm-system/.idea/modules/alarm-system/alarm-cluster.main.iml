@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="root:main [file:///home/paso/Desktop/uni/PCD/assignments/assignment-04/alarm-system/]" external.linked.project.path="$MODULE_DIR$/../../.." external.root.project.path="$MODULE_DIR$/../../.." external.system.id="SBT" external.system.module.type="sbtSourceSet" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="root:main [file:///home/paso/Documents/Uni/PCD/assignments/pcd-assignment-04/alarm-system/]" external.linked.project.path="$MODULE_DIR$/../../.." external.root.project.path="$MODULE_DIR$/../../.." external.system.id="SBT" external.system.module.type="sbtSourceSet" type="JAVA_MODULE" version="4">
   <component name="DisplayModuleName">
-    <option name="name" value="Template-for-Scala-Multiplatform-Projects.main" />
+    <option name="name" value="alarm-cluster.main" />
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_21">
     <output url="file://$MODULE_DIR$/../../../target/scala-3.7.4/classes" />

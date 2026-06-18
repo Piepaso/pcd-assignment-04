@@ -3,6 +3,7 @@ services:
     build:
       context: ../
       dockerfile: docker/Dockerfile.simple
+      network: host
     ports:
       - "1600:1600"
     environment:
@@ -14,8 +15,7 @@ services:
     build:
       context: ../
       dockerfile: docker/Dockerfile.simple
-    # ports:
-    #   - "2552:2551"
+      network: host
     environment:
       - CLUSTER_IP=node1
       - CLUSTER_PORT=2552
@@ -25,8 +25,7 @@ services:
     build:
       context: ../
       dockerfile: docker/Dockerfile.simple
-    # ports:
-    #   - "2553:2551"
+      network: host
     environment:
       - CLUSTER_IP=node2
       - CLUSTER_PORT=2553

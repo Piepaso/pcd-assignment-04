@@ -3,6 +3,7 @@ services:
     build:
       context: ../
       dockerfile: docker/Dockerfile.coordinator
+      network: host
     ports:
       - "1600:1600"
     environment:
@@ -14,6 +15,7 @@ services:
     build:
       context: ../
       dockerfile: docker/Dockerfile.worker
+      network: host
     # ports:
     #   - "2552:2551"
     environment:
@@ -25,6 +27,7 @@ services:
     build:
       context: ../
       dockerfile: docker/Dockerfile.worker
+      network: host
     # ports:
     #   - "2553:2551"
     environment:

@@ -1,4 +1,4 @@
-package io.github.nicolasfara.es01.cluster.simple
+package pcd.cluster.simple
 
 import org.apache.pekko.actor.typed.scaladsl.*
 import org.apache.pekko.actor.typed.*

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <option name="separateProdTestSources" value="true" />
-    <profile name="sbt 1" modules="Template-for-Scala-Multiplatform-Projects,Template-for-Scala-Multiplatform-Projects.basics,Template-for-Scala-Multiplatform-Projects.cluster,seminar-pcd-actor-pekko-code_4690,seminar-pcd-actor-pekko-code_4690.main,seminar-pcd-actor-pekko-code_4690.test" />
-    <profile name="sbt 2" modules="Template-for-Scala-Multiplatform-Projects.test">
+    <profile name="sbt 1" modules="Smart-alarm-system,Smart-alarm-system.cluster,Template-for-Scala-Multiplatform-Projects,Template-for-Scala-Multiplatform-Projects.basics,Template-for-Scala-Multiplatform-Projects.cluster,alarm-cluster,alarm-cluster.cluster,seminar-pcd-actor-pekko-code_4690,seminar-pcd-actor-pekko-code_4690.main,seminar-pcd-actor-pekko-code_4690.test" />
+    <profile name="sbt 2" modules="Smart-alarm-system.test,Template-for-Scala-Multiplatform-Projects.test,alarm-cluster.test">
       <option name="implicitConversions" value="true" />
       <option name="uncheckedWarnings" value="true" />
       <option name="featureWarnings" value="true" />
@@ -27,7 +27,7 @@
         <plugin path="$PROJECT_DIR$/target/scala-3.7.4/compiler_plugins/wartremover_3.7.4-3.4.1.jar" />
       </plugins>
     </profile>
-    <profile name="sbt 3" modules="Template-for-Scala-Multiplatform-Projects.main">
+    <profile name="sbt 3" modules="Smart-alarm-system.main,Template-for-Scala-Multiplatform-Projects.main,alarm-cluster.main">
       <option name="implicitConversions" value="true" />
       <option name="uncheckedWarnings" value="true" />
       <option name="featureWarnings" value="true" />
@@ -99,7 +99,7 @@
         <plugin path="$PROJECT_DIR$/target/scala-3.7.4/compiler_plugins/wartremover_3.7.4-3.4.1.jar" />
       </plugins>
     </profile>
-    <profile name="sbt 6" modules="Template-for-Scala-Multiplatform-Projects.cluster.test">
+    <profile name="sbt 6" modules="Smart-alarm-system.cluster.test,Template-for-Scala-Multiplatform-Projects.cluster.test,alarm-cluster.cluster.test">
       <option name="implicitConversions" value="true" />
       <option name="uncheckedWarnings" value="true" />
       <option name="featureWarnings" value="true" />
@@ -123,7 +123,7 @@
         <plugin path="$PROJECT_DIR$/target/scala-3.7.4/compiler_plugins/wartremover_3.7.4-3.4.1.jar" />
       </plugins>
     </profile>
-    <profile name="sbt 7" modules="Template-for-Scala-Multiplatform-Projects.cluster.main">
+    <profile name="sbt 7" modules="Smart-alarm-system.cluster.main,Template-for-Scala-Multiplatform-Projects.cluster.main,alarm-cluster.cluster.main">
       <option name="implicitConversions" value="true" />
       <option name="uncheckedWarnings" value="true" />
       <option name="featureWarnings" value="true" />

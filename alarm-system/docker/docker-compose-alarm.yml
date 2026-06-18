@@ -1,0 +1,82 @@
+# 5 nodi cluster (2 controller + 2 sensori + 1 keypad) + Postgres.
+# Tutti girano la STESSA immagine `alarm-system:0.1.0`, differenziata da NODE_ROLE.
+# Killando UN controller restano 4/5 nodi = maggioranza, quindi lo SBR lo
+# marca Down e il singleton migra sull'altro controller.
+
+x-seeds: &seeds "pekko://AlarmSystem@controller1:2551,pekko://AlarmSystem@controller2:2552"
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: alarm
+      POSTGRES_USER: alarm
+      POSTGRES_PASSWORD: alarm
+    volumes:
+      - ./docker/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U alarm -d alarm"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  controller1:
+    image: alarm-system:0.1.0
+    depends_on:
+      postgres: { condition: service_healthy }
+    environment:
+      NODE_ROLE: controller
+      HOST: controller1
+      PORT: 2551
+      DB_HOST: postgres
+      SEED_NODES: *seeds
+    restart: always
+
+  controller2:
+    image: alarm-system:0.1.0
+    depends_on:
+      postgres: { condition: service_healthy }
+    environment:
+      NODE_ROLE: controller
+      HOST: controller2
+      PORT: 2552
+      DB_HOST: postgres
+      SEED_NODES: *seeds
+    restart: always
+
+  sensor1:
+    image: alarm-system:0.1.0
+    depends_on: [controller1]
+    environment:
+      NODE_ROLE: sensor
+      HOST: sensor1
+      PORT: 2553
+      DB_HOST: postgres
+      SEED_NODES: *seeds
+      SENSOR_INTERVAL: "25 seconds"
+    restart: always
+
+  sensor2:
+    image: alarm-system:0.1.0
+    depends_on: [controller1]
+    environment:
+      NODE_ROLE: sensor
+      HOST: sensor2
+      PORT: 2554
+      DB_HOST: postgres
+      SEED_NODES: *seeds
+      SENSOR_INTERVAL: "35 seconds"
+    restart: always
+
+  keypad:
+    image: alarm-system:0.1.0
+    depends_on: [controller1]
+    environment:
+      NODE_ROLE: keypad
+      HOST: keypad
+      PORT: 2555
+      DB_HOST: postgres
+      SEED_NODES: *seeds
+    restart: always
+    stdin_open: true   # serve per digitare comandi via `docker attach`
+    tty: true

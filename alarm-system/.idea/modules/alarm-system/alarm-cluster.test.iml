@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="basics:test [file:///home/paso/Desktop/uni/PCD/assignments/assignment-04/alarm-system/]" external.linked.project.path="$MODULE_DIR$/../../../../basics" external.root.project.path="$MODULE_DIR$/../../../.." external.system.id="SBT" external.system.module.type="sbtSourceSet" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="root:test [file:///home/paso/Documents/Uni/PCD/assignments/pcd-assignment-04/alarm-system/]" external.linked.project.path="$MODULE_DIR$/../../.." external.root.project.path="$MODULE_DIR$/../../.." external.system.id="SBT" external.system.module.type="sbtSourceSet" type="JAVA_MODULE" version="4">
   <component name="DisplayModuleName">
-    <option name="name" value="basics.test" />
+    <option name="name" value="alarm-cluster.test" />
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_21">
-    <output-test url="file://$MODULE_DIR$/../../../../basics/target/scala-3.7.4/test-classes" />
+    <output-test url="file://$MODULE_DIR$/../../../target/scala-3.7.4/test-classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../../basics/src/test">
-      <sourceFolder url="file://$MODULE_DIR$/../../../../basics/src/test/scala" isTestSource="true" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../../basics/target/scala-3.7.4/resource_managed/test" />
-    <content url="file://$MODULE_DIR$/../../../../basics/target/scala-3.7.4/src_managed/test" />
+    <content url="file://$MODULE_DIR$/../../../src/test" />
+    <content url="file://$MODULE_DIR$/../../../target/scala-3.7.4/resource_managed/test" />
+    <content url="file://$MODULE_DIR$/../../../target/scala-3.7.4/src_managed/test" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sbt: scala-sdk-3.7.4" level="project" />
-    <orderEntry type="module" module-name="Template-for-Scala-Multiplatform-Projects.basics.main" />
-    <orderEntry type="module" module-name="Template-for-Scala-Multiplatform-Projects.main" />
+    <orderEntry type="module" module-name="alarm-cluster.main" />
     <orderEntry type="library" name="sbt: org.scalatest:scalatest_3:3.2.20:jar" level="project" />
     <orderEntry type="library" name="sbt: org.apache.pekko:pekko-actor-typed_3:1.6.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.apache.pekko:pekko-actor-testkit-typed_3:1.6.0:jar" level="project" />
@@ -46,5 +43,5 @@
     <orderEntry type="library" name="sbt: org.scala-lang.modules:scala-xml_3:2.1.0:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe:config:1.4.6:jar" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="Template-for-Scala-Multiplatform-Projects.basics.main" />
+  <component name="TestModuleProperties" production-module="alarm-cluster.main" />
 </module>

@@ -1,9 +1,9 @@
-package io.github.nicolasfara.es01.cluster.sharding
+package pcd.cluster.sharding
 
 import org.apache.pekko.actor.typed.scaladsl.Behaviors
 import org.apache.pekko.actor.typed.{ActorRef, Behavior}
-import io.github.nicolasfara.es01.cluster.CborSerializable
 import org.apache.pekko.cluster.sharding.typed.scaladsl.EntityTypeKey
+import pcd.cluster.CborSerializable
 
 object Counter:
   // EntityTypeKey defines the name of the shard region and the type of messages it accepts

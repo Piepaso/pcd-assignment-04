@@ -1,9 +1,9 @@
-package io.github.nicolasfara.es01.cluster.router
+package pcd.cluster.router
 
 import org.apache.pekko.actor.typed.*
-import io.github.nicolasfara.es01.cluster.CborSerializable
 import org.apache.pekko.actor.typed.scaladsl.*
 import org.apache.pekko.actor.typed.receptionist.*
+import pcd.cluster.CborSerializable
 
 object Worker:
   sealed trait Command extends CborSerializable
@@ -27,6 +27,6 @@ object Worker:
 object WorkerRouter:
   val workerServiceKey = ServiceKey[Worker.Command]("worker")
   def apply(workers: Int): Behavior[Unit] = Behaviors.setup: ctx =>
-    (0 to workers - 1).map(i => ctx.spawn(Worker(), s"worker-$i")).foreach: ref =>
+    (0 until workers).map(i => ctx.spawn(Worker(), s"worker-$i")).foreach: ref =>
       ctx.system.receptionist ! Receptionist.Register(workerServiceKey, ref)
     Behaviors.empty
