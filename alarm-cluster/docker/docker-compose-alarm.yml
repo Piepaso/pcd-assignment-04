@@ -1,0 +1,68 @@
+services:
+  control:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.alarm
+      network: host
+    ports:
+      - "1600:1600"
+    environment:
+      - CLUSTER_IP=control
+      - CLUSTER_PORT=1600
+      - SEED_PORT_1600_TCP_ADDR=control
+      - NODE_ROLE=control
+
+  keypad:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.alarm
+      network: host
+    environment:
+      - CLUSTER_IP=keypad
+      - CLUSTER_PORT=2552
+      - SEED_PORT_1600_TCP_ADDR=control
+      - NODE_ROLE=keypad
+    depends_on:
+      - control
+
+  sensor-motion1:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.alarm
+      network: host
+    environment:
+      - CLUSTER_IP=sensor-motion1
+      - CLUSTER_PORT=2553
+      - SEED_PORT_1600_TCP_ADDR=control
+      - NODE_ROLE=sensor
+      - SENSOR_ID=motion1
+    depends_on:
+      - control
+
+  sensor-motion2:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.alarm
+      network: host
+    environment:
+      - CLUSTER_IP=sensor-motion2
+      - CLUSTER_PORT=2554
+      - SEED_PORT_1600_TCP_ADDR=control
+      - NODE_ROLE=sensor
+      - SENSOR_ID=motion2
+    depends_on:
+      - control
+
+  sensor-window1:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.alarm
+      network: host
+    environment:
+      - CLUSTER_IP=sensor-window1
+      - CLUSTER_PORT=2555
+      - SEED_PORT_1600_TCP_ADDR=control
+      - NODE_ROLE=sensor
+      - SENSOR_ID=window1
+    depends_on:
+      - control

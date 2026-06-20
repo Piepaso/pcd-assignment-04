@@ -1,17 +1,17 @@
 # Target
-target
+**/target/
 
 # BSP
-.bsp
+**/.bsp/
 
 # Metals
-/project/**/metals.sbt
-.bloop/
-/.metals
+**/project/**/metals.sbt
+**/.bloop/
+**/.metals/
 
 # IDEs
-/.idea
-/.vscode
+**/.idea/
+**/.vscode/
 
-node_modules/
-.codex
+**/node_modules/
+**/.codex

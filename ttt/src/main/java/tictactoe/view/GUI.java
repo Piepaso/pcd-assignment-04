@@ -29,7 +29,7 @@ public class GUI {
 
     // Callbacks
     private Consumer<String> onHostSelected;
-    private BiConsumer<String, String> onJoinSelected; // Modificato in BiConsumer<IP, LobbyName>
+    private BiConsumer<String, String> onJoinSelected;
     private Consumer<Integer> onMoveSelected;
 
     public GUI() {
@@ -190,9 +190,15 @@ public class GUI {
         SwingUtilities.invokeLater(() -> messageLabel.setText(message));
     }
 
-    public void setOnHostSelected(Consumer<String> callback) { this.onHostSelected = callback; }
+    public void setOnHostSelected(Consumer<String> callback) {
+        this.onHostSelected = callback;
+    }
 
-    public void setOnJoinSelected(BiConsumer<String, String> callback) { this.onJoinSelected = callback; }
+    public void setOnJoinSelected(BiConsumer<String, String> callback) {
+        this.onJoinSelected = callback;
+    }
 
-    public void setOnMoveSelected(Consumer<Integer> callback) { this.onMoveSelected = callback; }
+    public void setOnMoveSelected(Consumer<Integer> callback) {
+        this.onMoveSelected = callback;
+    }
 }
