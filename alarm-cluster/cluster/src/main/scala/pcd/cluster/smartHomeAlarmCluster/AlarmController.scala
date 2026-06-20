@@ -130,17 +130,17 @@ class AlarmController(correctPin: String, sensorPositions: Map[String, Zone]):
           disarmed(sensors, zonesToArm, timers, ctx)
 
         case EntryTimeout =>
-          log(s"Entry delay timed out! EMERGENCY: Activating alarm!")
+          log("Entry delay timed out!")
+          log("ALARM! Digit the correct PIN to disarm.")
           alarmActive(sensors, zonesToArm, timers, ctx)
     )
 
   private def alarmActive(sensors: SensorRef, zonesToArm: Set[Zone], timers: TimerScheduler[Command], ctx: ActorContext[Command]): Behavior[Command] =
-    log(s"ALARM! Digit the correct PIN to disarm.")
     createState(ctx,
       sensors,
       s =>
         messageToSensors(s, zonesToArm, Sensor.SwitchOn(ctx.self))
-        entryDelay(s, zonesToArm, timers, ctx),
+        alarmActive(s, zonesToArm, timers, ctx),
       Behaviors.receiveMessagePartial:
         case PinEntered(_, replyTo) =>
           replyTo ! DisplayMessage("Alarm deactivated.")

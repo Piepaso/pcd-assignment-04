@@ -21,8 +21,6 @@ object App:
   def rootBehavior(role: String): Behavior[Nothing] =
     Behaviors.setup[Nothing]: ctx =>
 
-      val _ = ctx.spawn(ClusterListener(), "cluster-listener")
-
       val singleton = ClusterSingleton(ctx.system)
       val controller: ActorRef[Command] = singleton.init(
         SingletonActor(new AlarmController(correctPin, sensorsPositions).apply(), "AlarmController")
