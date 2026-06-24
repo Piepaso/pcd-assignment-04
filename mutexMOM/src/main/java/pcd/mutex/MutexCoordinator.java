@@ -51,7 +51,7 @@ public class MutexCoordinator {
 
         if (cmd.equals(MutexProtocol.REQUEST)) {
             section.waiting.add(client);
-            System.out.println("[coordinator] REQUEST cs=" + cs + " (in attesa: " + section.waiting.size() + ")");
+            System.out.println("[coordinator] REQUEST cs=" + cs + " (waiting: " + section.waiting.size() + ")");
         } else if (cmd.equals(MutexProtocol.RELEASE)) {
             section.holder = null;
             System.out.println("[coordinator] RELEASE cs=" + cs);
