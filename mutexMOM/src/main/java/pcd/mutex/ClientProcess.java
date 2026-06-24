@@ -16,7 +16,7 @@ public class ClientProcess {
         DistributedMutex mutex = new DistributedMutex(connection, cs);
 
         for (int i = 0; i < rounds; i++) {
-            System.out.println("[" + name + "] richiedo la CS...");
+            System.out.println("[" + name + "] need CS...");
             mutex.acquire();
             System.out.println("[" + name + "] >>> IN");
             Thread.sleep(1000);                  // cs
@@ -26,6 +26,5 @@ public class ClientProcess {
         }
 
         connection.close();
-        System.out.println("[" + name + "] finito.");
     }
 }

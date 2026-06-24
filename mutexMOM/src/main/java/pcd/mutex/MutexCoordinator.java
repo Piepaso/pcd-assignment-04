@@ -24,7 +24,7 @@ public class MutexCoordinator {
         channel = connection.createChannel();
 
         channel.queueDeclare(MutexProtocol.COORDINATOR_QUEUE, false, false, false, null);
-        System.out.println("[coordinator] in ascolto su '" + MutexProtocol.COORDINATOR_QUEUE + "'");
+        System.out.println("[coordinator] listening on '" + MutexProtocol.COORDINATOR_QUEUE + "'");
 
         DeliverCallback onRequest = (consumerTag, delivery) -> {
             String msg = new String(delivery.getBody(), "UTF-8");
@@ -62,7 +62,7 @@ public class MutexCoordinator {
             section.holder = next;
             String grantMessage = MutexProtocol.GRANT + " " + cs;
             channel.basicPublish(MutexProtocol.DEFAULT_EXCHANGE, next, null, grantMessage.getBytes("UTF-8"));
-            System.out.println("[coordinator] GRANT   cs=" + cs);
+            System.out.println("[coordinator] GRANT cs=" + cs);
         }
     }
 }
